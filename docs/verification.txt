@@ -1,0 +1,152 @@
+npm WARN deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 123 packages, and audited 124 packages in 13s
+
+found 0 vulnerabilities
+
+> screenshot-inbox@0.1.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: CLI indexes a real fixture folder and retrieves OCR from persisted index
+ok 1 - CLI indexes a real fixture folder and retrieves OCR from persisted index
+  ---
+  duration_ms: 7290.435622
+  type: 'test'
+  ...
+# Subtest: CLI invalid command exits nonzero with structured error
+ok 2 - CLI invalid command exits nonzero with structured error
+  ---
+  duration_ms: 262.362886
+  type: 'test'
+  ...
+# Subtest: index folder, persist thumbnail and find text-free dog by visual query
+ok 3 - index folder, persist thumbnail and find text-free dog by visual query
+  ---
+  duration_ms: 7106.692726
+  type: 'test'
+  ...
+# Subtest: real CLIP produces normalized aligned vectors; real OCR reads generated text
+ok 4 - real CLIP produces normalized aligned vectors; real OCR reads generated text
+  ---
+  duration_ms: 1294.186915
+  type: 'test'
+  ...
+# Subtest: offline mode with an empty cache fails without attempting a network fetch
+ok 5 - offline mode with an empty cache fails without attempting a network fetch
+  ---
+  duration_ms: 11.650447
+  type: 'test'
+  ...
+# Subtest: path confinement handles POSIX siblings, Windows other drives and UNC shares
+ok 6 - path confinement handles POSIX siblings, Windows other drives and UNC shares
+  ---
+  duration_ms: 1.992528
+  type: 'test'
+  ...
+# Subtest: DOM → real CLI → real models → persisted results → validated original path
+ok 7 - DOM → real CLI → real models → persisted results → validated original path
+  ---
+  duration_ms: 8202.926906
+  type: 'test'
+  ...
+# Subtest: choose folder, scan, search and open original through adapter; never interpret filename as HTML
+ok 8 - choose folder, scan, search and open original through adapter; never interpret filename as HTML
+  ---
+  duration_ms: 123.07904
+  type: 'test'
+  ...
+# Subtest: adapter failure is visible and controls recover
+ok 9 - adapter failure is visible and controls recover
+  ---
+  duration_ms: 22.422941
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 26486.070482
+
+> screenshot-inbox@0.1.0 test:bridge
+> node scripts/test-bridge.js
+
+
+running 2 tests
+test tests::rejects_unknown_command_without_spawning ... ok
+test tests::bridge_indexes_and_searches_real_generated_image ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.76s
+
+
+> screenshot-inbox@0.1.0 icons
+> node scripts/icon.js && tauri icon .local/icon.png -o src-tauri/icons
+
+        Appx Creating StoreLogo.png
+        Appx Creating Square30x30Logo.png
+        Appx Creating Square44x44Logo.png
+        Appx Creating Square71x71Logo.png
+        Appx Creating Square89x89Logo.png
+        Appx Creating Square107x107Logo.png
+        Appx Creating Square142x142Logo.png
+        Appx Creating Square150x150Logo.png
+        Appx Creating Square284x284Logo.png
+        Appx Creating Square310x310Logo.png
+        ICNS Creating icon.icns
+         ICO Creating icon.ico
+         PNG Creating 32x32.png
+         PNG Creating 64x64.png
+         PNG Creating 128x128.png
+         PNG Creating 128x128@2x.png
+         PNG Creating icon.png
+         iOS Creating AppIcon-20x20@2x-1.png
+         iOS Creating AppIcon-20x20@1x.png
+         iOS Creating AppIcon-20x20@2x.png
+         iOS Creating AppIcon-20x20@3x.png
+         iOS Creating AppIcon-29x29@2x-1.png
+         iOS Creating AppIcon-29x29@1x.png
+         iOS Creating AppIcon-29x29@2x.png
+         iOS Creating AppIcon-29x29@3x.png
+         iOS Creating AppIcon-40x40@2x-1.png
+         iOS Creating AppIcon-40x40@1x.png
+         iOS Creating AppIcon-40x40@2x.png
+         iOS Creating AppIcon-40x40@3x.png
+         iOS Creating AppIcon-60x60@2x.png
+         iOS Creating AppIcon-60x60@3x.png
+         iOS Creating AppIcon-76x76@1x.png
+         iOS Creating AppIcon-76x76@2x.png
+         iOS Creating AppIcon-83.5x83.5@2x.png
+         iOS Creating AppIcon-512@2x.png
+     Android Creating mipmap-hdpi/ic_launcher_foreground.png
+     Android Creating mipmap-mdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xxhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xxxhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-hdpi/ic_launcher_round.png
+     Android Creating mipmap-hdpi/ic_launcher.png
+     Android Creating mipmap-mdpi/ic_launcher_round.png
+     Android Creating mipmap-mdpi/ic_launcher.png
+     Android Creating mipmap-xhdpi/ic_launcher_round.png
+     Android Creating mipmap-xhdpi/ic_launcher.png
+     Android Creating mipmap-xxhdpi/ic_launcher_round.png
+     Android Creating mipmap-xxhdpi/ic_launcher.png
+     Android Creating mipmap-xxxhdpi/ic_launcher_round.png
+     Android Creating mipmap-xxxhdpi/ic_launcher.png
+
+> screenshot-inbox@0.1.0 build
+> vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 8 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                 1.48 kB │ gzip: 0.79 kB
+dist/assets/index-CUSiqW28.css  2.29 kB │ gzip: 0.99 kB
+dist/assets/index-DrrFSso1.js   3.25 kB │ gzip: 1.57 kB
+✓ built in 166ms
+found 0 vulnerabilities

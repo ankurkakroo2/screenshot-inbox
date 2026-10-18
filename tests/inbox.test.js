@@ -30,6 +30,11 @@ test('index folder, persist thumbnail and find text-free dog by visual query', {
     const second = await inbox.index();
     assert.equal(second.indexed, 0);
     assert.equal(second.unchanged, 3);
+    await writeFile(join(folder, 'c.png'), await readFile(join(folder, 'b.png')));
+    const updated = await inbox.index();
+    assert.equal(updated.indexed, 1);
+    assert.equal(updated.unchanged, 2);
+    assert.equal((await inbox.search('73421', 'text')).length, 2);
     await assert.rejects(inbox.search('x', 'invalid'), /Invalid search mode/);
     await assert.rejects(inbox.search('x', 'text', 1000), /Limit/);
     await assert.rejects(inbox.original('../secret'), /Unknown image/);

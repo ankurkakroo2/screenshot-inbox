@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
 import { JSDOM } from 'jsdom';
 import { fixtures } from '../scripts/fixtures.js';
 import { mount } from '../ui/app.js';
-const exec = promisify(execFile);
+const runCli = promisify(execFile);
 async function until(check) {
   const deadline = Date.now() + 120000;
   while (!check()) { if (Date.now() > deadline) throw new Error('UI operation timed out'); await new Promise(r => setTimeout(r, 25)); }
@@ -25,7 +25,7 @@ test('DOM → real CLI → real models → persisted results → validated origi
     choose:async()=>folder, // Native dialog cannot run in JSDOM; all inference below is real.
     run:async (command,args) => {
       const nativeOpen = command === 'open_original';
-      const result = await exec(process.execPath,['src/cli.js',nativeOpen?'original':command,args.folder,state,nativeOpen?args.id:(args.query||''),args.mode||'hybrid'],{maxBuffer:10*1024*1024});
+      const result = await runCli(process.execPath,['src/cli.js',nativeOpen?'original':command,args.folder,state,nativeOpen?args.id:(args.query||''),args.mode||'hybrid'],{maxBuffer:10*1024*1024});
       const value = JSON.parse(result.stdout);
       if (nativeOpen) opened = value; // Do not launch a GUI on this headless runner.
       return value;
