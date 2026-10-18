@@ -1,0 +1,13 @@
+node_modules/
+dist/
+target/
+.cache/
+.local/
+*.onnx
+*.traineddata*
+*.png
+*.jpg
+*.jpeg
+*.webp
+.env*
+*.log
