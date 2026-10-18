@@ -1,4 +1,4 @@
-import { mkdir } from 'node:fs/promises';
+import { mkdir, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
 import { env, AutoTokenizer, AutoProcessor, CLIPTextModelWithProjection, CLIPVisionModelWithProjection, RawImage } from '@huggingface/transformers';
@@ -17,21 +17,30 @@ function normalized(tensor) {
 }
 
 export class Models {
+  constructor({ offline = process.env.SCREENSHOT_INBOX_OFFLINE === '1', cacheDir = CACHE } = {}) {
+    this.offline = offline;
+    this.cacheDir = cacheDir;
+    this.options = { ...options, cache_dir: join(cacheDir, 'models'), local_files_only: offline };
+  }
   async text(text) {
-    this.textReady ??= Promise.all([AutoTokenizer.from_pretrained(MODEL, { revision: REVISION }), CLIPTextModelWithProjection.from_pretrained(MODEL, options)]);
+    this.textReady ??= Promise.all([AutoTokenizer.from_pretrained(MODEL, this.options), CLIPTextModelWithProjection.from_pretrained(MODEL, this.options)]);
     const [tokenizer, model] = await this.textReady;
     return normalized((await model(tokenizer(text, { padding: true, truncation: true }))).text_embeds);
   }
   async image(buffer) {
-    this.imageReady ??= Promise.all([AutoProcessor.from_pretrained(MODEL, { revision: REVISION }), CLIPVisionModelWithProjection.from_pretrained(MODEL, options)]);
+    this.imageReady ??= Promise.all([AutoProcessor.from_pretrained(MODEL, this.options), CLIPVisionModelWithProjection.from_pretrained(MODEL, this.options)]);
     const [processor, model] = await this.imageReady;
     const image = await RawImage.fromBlob(new Blob([buffer]));
     return normalized((await model(await processor(image))).image_embeds);
   }
   async ocr(buffer) {
     this.ocrReady ??= (async () => {
-      await mkdir(join(CACHE, 'ocr'), { recursive: true });
-      return createWorker('eng', 1, { cachePath: join(CACHE, 'ocr') });
+      const cachePath = join(this.cacheDir, 'ocr');
+      await mkdir(cachePath, { recursive: true });
+      if (this.offline) await access(join(cachePath, 'eng.traineddata')).catch(() => { throw new Error('Offline OCR data missing; run once online'); });
+      const worker = await createWorker('eng', 1, { cachePath, ...(this.offline ? {langPath:cachePath,gzip:false} : {}) });
+      await worker.setParameters({ user_defined_dpi: '300' });
+      return worker;
     })();
     return (await (await this.ocrReady).recognize(buffer)).data.text.trim();
   }

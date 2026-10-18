@@ -1,12 +1,12 @@
 import { mkdir, readFile, readdir, realpath, stat, open, rename, unlink, lstat } from 'node:fs/promises';
-import { resolve, join, relative, sep, extname } from 'node:path';
+import { resolve, join, relative, extname } from 'node:path';
+import { isWithin as inside } from './paths.js';
 import { createHash, randomUUID } from 'node:crypto';
 import sharp from 'sharp';
 import { MODEL, REVISION } from './models.js';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const VERSION = `1:${MODEL}:${REVISION}:q8`;
 const supported = new Set(['.png', '.jpg', '.jpeg', '.webp']);
-const inside = (root, path) => { const r = relative(root, path); return r !== '..' && !r.startsWith(`..${sep}`) && !r.startsWith(sep); };
 
 export class Inbox {
   constructor(folder, stateDir, models) {
