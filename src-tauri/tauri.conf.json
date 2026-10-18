@@ -1,0 +1,19 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Screenshot Inbox",
+  "version": "0.1.0",
+  "identifier": "io.github.ankurkakroo2.screenshot-inbox",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run icons && npm run dev",
+    "beforeBuildCommand": "npm run icons && npm run build"
+  },
+  "app": {
+    "windows": [{"title":"Screenshot Inbox","width":1100,"height":760,"minWidth":620,"minHeight":480}],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src ipc: http://ipc.localhost; object-src 'none'; base-uri 'self'"
+    }
+  },
+  "bundle": { "active": false }
+}

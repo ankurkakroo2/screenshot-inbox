@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "test:bridge": "node scripts/test-bridge.js",
+    "icons": "node scripts/icon.js && tauri icon .local/icon.png -o src-tauri/icons",
     "benchmark": "node scripts/benchmark.js",
     "cli": "node src/cli.js",
     "build": "vite build",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.0.0",
+    "jsdom": "26.1.0",
     "vite": "^6.4.1"
   }
 }
